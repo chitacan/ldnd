@@ -16,7 +16,9 @@ config :ldnd, LdndWeb.Endpoint,
   secret_key_base: "sgh1qH47LAfgFZ9XwFAehgC9IDeO6dai4e85c3lmBenhURld9EPoyDQIaF2oscQj",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild:
+      {Esbuild, :install_and_run,
+       [:default, ~w(--sourcemap=inline --watch --inject:./react-shim.js)]}
   ]
 
 # ## SSL Support
