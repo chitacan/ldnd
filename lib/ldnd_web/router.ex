@@ -18,6 +18,7 @@ defmodule LdndWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :index
+    live "/single", SingleLive, :index
   end
 
   # Other scopes may use custom stacks.
