@@ -18,7 +18,7 @@ config :ldnd, LdndWeb.Endpoint,
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild:
       {Esbuild, :install_and_run,
-       [:default, ~w(--sourcemap=inline --watch --inject:./react-shim.js)]}
+       [:default, ~w(--sourcemap=inline --watch --inject:./js/react-shim.js)]}
   ]
 
 # ## SSL Support
