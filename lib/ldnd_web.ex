@@ -89,6 +89,7 @@ defmodule LdndWeb do
 
       import LdndWeb.ErrorHelpers
       import LdndWeb.Gettext
+      import LdndWeb.LiveView.Helpers
       alias LdndWeb.Router.Helpers, as: Routes
     end
   end

@@ -1,4 +1,3 @@
-import { render, hydrate } from "react-dom";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -17,6 +16,7 @@ const Box = ({ name }) => {
       handlerId: monitor.getHandlerId(),
     }),
   }));
+
   return (
     <div
       ref={drag}
@@ -58,7 +58,7 @@ const Dustbin = () => {
   );
 };
 
-export const App = () => {
+export default SingleTarget = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
@@ -74,11 +74,3 @@ export const App = () => {
     </DndProvider>
   );
 };
-
-const hook = {
-  mounted() {
-    hydrate(<App />, this.el);
-  },
-};
-
-export default hook;
