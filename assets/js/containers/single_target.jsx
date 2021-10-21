@@ -1,27 +1,38 @@
+import { useState } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import { useSocketPush, useSocketHandle } from "../hooks/live_socket";
+import { Provider } from "../hooks/live_socket";
 
 const Box = ({ name }) => {
+  const [item, setItem] = useState(null);
+  useSocketPush(["dropped", item], {
+    refetchOnWindowFocus: false,
+    enabled: item !== null,
+  });
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "BOX",
     item: { name },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
-        alert(`You dropped ${item.name} into ${dropResult.name}!`);
+        console.log(item);
+        setItem({ item, dropResult });
       }
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
     }),
-  }));
+  }), [name]);
 
   return (
     <div
       ref={drag}
       role="Box"
-      className="border border-dashed border-gray-400 m-2 p-1 w-min cursor-move"
+      className="border border-dashed border-gray-400 m-2 p-1 w-min cursor-move float-left"
       style={{ opacity: isDragging ? 0.4 : 1 }}
       data-testid={`box-${name}`}
     >
@@ -58,19 +69,32 @@ const Dustbin = () => {
   );
 };
 
-export default SingleTarget = () => {
+const App = () => {
+  const [boxes] = useSocketHandle("boxes", ["Glass", "Banana", "Paper"]);
   return (
-    <DndProvider backend={HTML5Backend}>
+    <div>
       <div>
-        <div>
-          <Dustbin />
-        </div>
-        <div>
-          <Box name="Glass" />
-          <Box name="Banana" />
-          <Box name="Paper" />
-        </div>
+        <Dustbin />
       </div>
-    </DndProvider>
+      <div>
+        {boxes.map((box, i) => (
+          <Box key={i} name={box} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const queryClient = new QueryClient();
+
+export default ({ socket = {} }) => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Provider value={socket}>
+        <DndProvider backend={HTML5Backend}>
+          <App />
+        </DndProvider>
+      </Provider>
+    </QueryClientProvider>
   );
 };
