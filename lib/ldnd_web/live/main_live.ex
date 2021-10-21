@@ -7,7 +7,8 @@ defmodule LdndWeb.MainLive do
 
   def render(assigns) do
     ~H"""
-    <h1>hello liveview & react-dnd</h1>
+    <h1 class="text-2xl font-extrabold">hello liveview & react-dnd</h1>
+    <%= live_redirect "single_target", to: Routes.single_path(@socket, :index), class: "text-blue-600" %>
     """
   end
 end
