@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { QueryClient, QueryClientProvider } from "react-query";
-
+import { useDrag, useDrop } from "react-dnd";
 import { useSocketPush, useSocketHandle } from "../hooks/live_socket";
-import { Provider } from "../hooks/live_socket";
+import { Providers } from "./providers";
 
 const Box = ({ name }) => {
   const [item, setItem] = useState(null);
@@ -85,16 +82,10 @@ const App = () => {
   );
 };
 
-const queryClient = new QueryClient();
-
 export default ({ socket = {} }) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider value={socket}>
-        <DndProvider backend={HTML5Backend}>
-          <App />
-        </DndProvider>
-      </Provider>
-    </QueryClientProvider>
+    <Providers socket={socket}>
+      <App />
+    </Providers>
   );
 };
