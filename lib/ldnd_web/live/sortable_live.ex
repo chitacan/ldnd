@@ -8,6 +8,7 @@ defmodule LdndWeb.SortableLive do
   def render(assigns) do
     ~H"""
     <h2 class="text-2xl font-bold">Sortable</h2>
+    <%= render_react "js/containers/sortable.jsx", "Sortable" %>
     """
   end
 end
