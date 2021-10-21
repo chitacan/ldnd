@@ -1,3 +1,17 @@
 # Ldnd
 
-liveview & react-dnd
+**L**iveView & react-**dnd**.
+
+This sample project includes experimental react SSR which integrated with LiveView.
+
+## requirements
+
+* elixir@1.12
+* nodejs@14.2.0
+
+## run
+
+```bash
+$ mix setup
+$ iex -S mix phx.server
+```
