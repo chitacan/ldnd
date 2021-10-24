@@ -29,7 +29,7 @@ defmodule LdndWeb.SingleLive do
         <span class="ml-2 text-green-700">dropped ➡️ <%= @dropped %></span>
       <% end %>
     </div>
-    <%= render_react "js/containers/single_target.jsx", "SingleTarget" %>
+    <%= render_react "SingleTarget" %>
     """
   end
 end

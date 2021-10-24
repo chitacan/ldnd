@@ -1,12 +1,15 @@
 defmodule LdndWeb.LiveView.Helpers do
   import Phoenix.HTML
 
-  defmacro render_react(container_path, container_name) do
+  defmacro render_react(container_name) do
     bundle_path =
       Mix.Project.build_path()
       |> Path.join("assets")
 
-    bundle_file = bundle_path |> Path.join(container_path |> Path.rootname() |> Path.basename())
+    container_file = container_name <> ".jsx"
+    container_path = Path.join(["js", "containers", container_file])
+
+    bundle_file = bundle_path |> Path.join(container_file |> Path.rootname() |> Path.basename())
 
     assets_path = Path.expand("../../../assets", __DIR__)
     execute_esbuild(:react, [container_path, "--outdir=#{bundle_path}"])

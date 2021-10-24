@@ -1,7 +1,9 @@
-import SingleTarget from './single_target';
-import Sortable from './sortable';
+import SingleTarget from './SingleTarget';
+import Sortable from './Sortable';
+import Snap from './Snap';
 
 export default {
   SingleTarget,
-  Sortable
+  Sortable,
+  Snap
 };
