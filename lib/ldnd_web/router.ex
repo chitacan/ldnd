@@ -20,6 +20,7 @@ defmodule LdndWeb.Router do
     live "/", MainLive, :index
     live "/single", SingleLive, :index
     live "/sortable", SortableLive, :index
+    live "/snap", SnapLive, :index
   end
 
   # Other scopes may use custom stacks.

@@ -7,9 +7,10 @@ defmodule LdndWeb.MainLive do
 
   def render(assigns) do
     ~H"""
-    <h1 class="text-2xl font-extrabold">liveview & react-dnd</h1>
+    <h1 class="text-2xl font-extrabold mb-2">liveview & react-dnd</h1>
     <%= live_redirect "single_target", to: Routes.single_path(@socket, :index), class: "text-blue-600 block" %>
     <%= live_redirect "sortable", to: Routes.sortable_path(@socket, :index), class: "text-blue-600 block" %>
+    <%= live_redirect "snap", to: Routes.snap_path(@socket, :index), class: "text-blue-600 block" %>
     """
   end
 end
