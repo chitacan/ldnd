@@ -2,21 +2,6 @@ import { Providers } from "./providers";
 import { useDragLayer, useDrag, useDrop } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { useEffect, useState, memo, useCallback } from "react";
-const styles = {
-  display: "inline-block",
-  transform: "rotate(-7deg)",
-  WebkitTransform: "rotate(-7deg)",
-};
-
-const layerStyles = {
-  position: "fixed",
-  pointerEvents: "none",
-  zIndex: 100,
-  left: 0,
-  top: 0,
-  width: "100%",
-  height: "100%",
-};
 
 const BOXES = {
   a: { top: 20, left: 80, title: "Drag me around" },
@@ -85,7 +70,7 @@ const BoxDragPreview = memo(function BoxDragPreview({ title }) {
     [tickTock]
   );
   return (
-    <div style={styles}>
+    <div className="inline-block transform -rotate-6">
       <Box title={title} yellow={tickTock} preview />
     </div>
   );
@@ -112,7 +97,7 @@ const CustomDragLayer = (props) => {
     return null;
   }
   return (
-    <div style={layerStyles}>
+    <div className="fixed pointer-events-none z-50 left-0 top-0 w-full h-full">
       <div
         style={getItemStyles(initialOffset, currentOffset, props.isSnapToGrid)}
       >
@@ -175,7 +160,7 @@ const Container = ({ isSnapToGrid }) => {
     [moveBox]
   );
   return (
-    <div ref={drop} className="w-80 h-80 border border-red-400">
+    <div ref={drop} className="w-80 h-80 border border-gray-400">
       {Object.keys(boxes).map((key) => (
         <DraggableBox key={key} id={key} {...boxes[key]} />
       ))}
