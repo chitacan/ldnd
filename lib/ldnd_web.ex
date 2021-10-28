@@ -47,6 +47,8 @@ defmodule LdndWeb do
       use Phoenix.LiveView,
         layout: {LdndWeb.LayoutView, "live.html"}
 
+      alias __MODULE__
+
       unquote(view_helpers())
     end
   end
@@ -89,7 +91,6 @@ defmodule LdndWeb do
 
       import LdndWeb.ErrorHelpers
       import LdndWeb.Gettext
-      import LdndWeb.LiveView.Helpers
       alias LdndWeb.Router.Helpers, as: Routes
     end
   end

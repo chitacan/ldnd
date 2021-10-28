@@ -1,5 +1,6 @@
 defmodule LdndWeb.SingleLive do
   use LdndWeb, :live_view
+  use LdndWeb.LiveView.ReactHelpers, container_name: "SingleTarget"
 
   def mount(_arg0, _session, socket) do
     {:ok, assign(socket, :dropped, nil)}
@@ -29,7 +30,7 @@ defmodule LdndWeb.SingleLive do
         <span class="ml-2 text-green-700">dropped ➡️ <%= @dropped %></span>
       <% end %>
     </div>
-    <%= render_react "SingleTarget" %>
+    <SingleLive.render_react />
     """
   end
 end

@@ -2,7 +2,7 @@
 
 **L**iveView & react-**dnd**.
 
-This sample project includes experimental react SSR which integrated with LiveView.
+This sample project includes experimental react SSR which integrated with LiveView Hooks.
 
 ## requirements
 

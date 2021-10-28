@@ -1,4 +1,4 @@
-defmodule LdndWeb.LiveView.React.Helpers do
+defmodule LdndWeb.LiveView.ReactHelpers do
   defmacro __using__(container_name: container_name) do
     bundle_path =
       Mix.Project.build_path()
@@ -12,6 +12,7 @@ defmodule LdndWeb.LiveView.React.Helpers do
     assets_path = Path.expand("../../../assets", __DIR__)
     execute_esbuild(:react, [container_path, "--outdir=#{bundle_path}"])
 
+    # TODO: should allow passing props to container
     render_code = """
       const {renderToString} = require("react-dom/server");
       const {createElement} = require("react");
@@ -33,15 +34,21 @@ defmodule LdndWeb.LiveView.React.Helpers do
       |> elem(0)
       |> hook_component(container_name)
 
-    # Module.put_attribute(__CALLER__.module, :external_resource, )
+    Module.put_attribute(
+      __CALLER__.module,
+      :external_resource,
+      Path.join(["assets", container_path])
+    )
 
     quote do
-      def render_react(var!(assigns)) do
-        var!(template) = unquote(component) |> Phoenix.HTML.raw()
+      def render_react(assigns) do
+        # from https://github.com/phoenixframework/phoenix_live_view/blob/cb6ebc1e/lib/phoenix_live_view/helpers.ex#L155-L165
+        {result, _bindings} =
+          unquote(component)
+          |> EEx.compile_string(engine: Phoenix.LiveView.HTMLEngine)
+          |> Code.eval_quoted(assigns: assigns)
 
-        ~H"""
-        <%= template %>
-        """
+        result
       end
     end
   end
